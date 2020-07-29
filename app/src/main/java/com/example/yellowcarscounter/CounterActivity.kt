@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.yellowcarscounter.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_counter.*
 import java.util.*
@@ -18,23 +19,55 @@ import java.util.*
 
 class CounterActivity : AppCompatActivity() {
 
+    private val mAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        loadLocate()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_counter)
 
-        val menuToolbar = findViewById<Toolbar>(R.id.toolbar)
-        // Initializing toolbar menu
-        setSupportActionBar(menuToolbar);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.counter)
-
-        val mAuth = FirebaseAuth.getInstance()
+        initializeMenu()
 
         b_logout.setOnClickListener {
             mAuth.signOut()
             startActivity(Intent(this,GetStartedActivity::class.java))
             finish()
         }
+    }
+
+    private fun initializeMenu(){
+        val menuToolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(menuToolbar);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.counter)
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        if (id == android.R.id.home) {
+            Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return true
+        }
+        if (id == R.id.actionSettings) {
+            showChangeLang()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showChangeLang() {
@@ -79,31 +112,5 @@ class CounterActivity : AppCompatActivity() {
         if (language != null) {
             setLocate(language)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int = item.itemId
-        if (id == android.R.id.home) {
-            Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this,ManageFriendsActivity::class.java))
-            finish()
-            return true
-        }
-        if (id == R.id.actionSettings) {
-            showChangeLang()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this,ManageFriendsActivity::class.java))
-        finish()
     }
 }

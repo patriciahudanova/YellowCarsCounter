@@ -1,4 +1,4 @@
-package com.example.yellowcarscounter
+package com.example.yellowcarscounter.login
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -13,6 +13,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.yellowcarscounter.GetStartedActivity
+import com.example.yellowcarscounter.R
+import com.example.yellowcarscounter.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.forgot_password_dialog.view.*
@@ -21,19 +24,16 @@ import java.util.*
 
 class LoginActivity : AppCompatActivity(){
 
-    lateinit var mAuth: FirebaseAuth
+    private var mAuth: FirebaseAuth= FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        loadLocate()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val menuToolbar = findViewById<Toolbar>(R.id.toolbar)
-        // Initializing toolbar menu
-        setSupportActionBar(menuToolbar);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.login)
-
-        mAuth = FirebaseAuth.getInstance()
+        initializeMenu()
 
         b_login.setOnClickListener {
             startLogin()
@@ -44,7 +44,14 @@ class LoginActivity : AppCompatActivity(){
         }
     }
 
-    fun sendNewPassword(){
+    private fun initializeMenu(){
+        val menuToolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(menuToolbar);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.login)
+    }
+
+    private fun sendNewPassword(){
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.forgot_password_dialog,null)
         //AlertDialogBuilder
         val mBuilder = AlertDialog.Builder(this)
@@ -75,6 +82,33 @@ class LoginActivity : AppCompatActivity(){
         }
     }
 
+    private fun startLogin(){
+        pb_login.visibility= View.VISIBLE
+        b_login.isEnabled=false
+        b_login.text=""
+        if (et_email.text.isEmpty()||et_password.text.isEmpty()){
+            pb_login.visibility= View.GONE
+            b_login.isEnabled=true
+            b_login.text="LOGIN"
+            Toast.makeText(this, getString(R.string.fields_are_empty), Toast.LENGTH_SHORT).show()
+        }
+        else{
+            mAuth.signInWithEmailAndPassword(et_email.text.toString(),et_password.text.toString()).addOnCompleteListener {
+                if(!it.isSuccessful){
+                    pb_login.visibility= View.GONE
+                    b_login.isEnabled=true
+                    b_login.text="LOGIN"
+                    Toast.makeText(this, getString(R.string.login_problem), Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
@@ -84,7 +118,7 @@ class LoginActivity : AppCompatActivity(){
         val id: Int = item.itemId
         if (id == android.R.id.home) {
             Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this,GetStartedActivity::class.java))
+            startActivity(Intent(this, GetStartedActivity::class.java))
             finish()
             return true
         }
@@ -97,7 +131,7 @@ class LoginActivity : AppCompatActivity(){
 
     override fun onBackPressed() {
         Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this,GetStartedActivity::class.java))
+        startActivity(Intent(this, GetStartedActivity::class.java))
         finish()
     }
 
@@ -146,33 +180,6 @@ class LoginActivity : AppCompatActivity(){
         val language = sharedPreferences.getString("My_Lang", "")
         if (language != null) {
             setLocate(language)
-        }
-    }
-
-    fun startLogin(){
-        pb_login.visibility= View.VISIBLE
-        b_login.isEnabled=false
-        b_login.text=""
-        if (et_email.text.isEmpty()||et_password.text.isEmpty()){
-            pb_login.visibility= View.GONE
-            b_login.isEnabled=true
-            b_login.text="LOGIN"
-            Toast.makeText(this, getString(R.string.fields_are_empty), Toast.LENGTH_SHORT).show()
-        }
-        else{
-            mAuth.signInWithEmailAndPassword(et_email.text.toString(),et_password.text.toString()).addOnCompleteListener {
-                if(!it.isSuccessful){
-                    pb_login.visibility= View.GONE
-                    b_login.isEnabled=true
-                    b_login.text="LOGIN"
-                    Toast.makeText(this, getString(R.string.login_problem), Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    val intent = Intent(this,ManageFriendsActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
         }
     }
 }

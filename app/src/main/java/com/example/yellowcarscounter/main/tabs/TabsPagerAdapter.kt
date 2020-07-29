@@ -1,10 +1,11 @@
-package com.example.yellowcarscounter
+package com.example.yellowcarscounter.main.tabs
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.yellowcarscounter.main.tabs.fragments.CounterFragment
+import com.example.yellowcarscounter.main.tabs.fragments.UsersFragment
 
 
 class TabsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private var numberOfTabs: Int) : FragmentStateAdapter(fm, lifecycle) {
@@ -12,18 +13,10 @@ class TabsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private var nu
     override fun createFragment(position: Int): Fragment {
         when (position) {
             0 -> {
-                val bundle = Bundle()
-                bundle.putString("fragmentName", "Counter Fragment")
-                val counterFragment = CounterFragment()
-                counterFragment.arguments = bundle
-                return counterFragment
+                return CounterFragment()
             }
             1 -> {
-                val bundle = Bundle()
-                bundle.putString("fragmentName", "Users Fragment")
-                val usersFragment = UsersFragment()
-                usersFragment.arguments = bundle
-                return usersFragment
+                return UsersFragment()
             }
             else -> return Fragment()
         }
