@@ -72,7 +72,7 @@ class RegisterActivity : AppCompatActivity(){
                     if (it.isSuccessful){
                         val uid = mAuth.currentUser!!.uid
                         var pic = FirebaseStorage.getInstance().reference.child("pics/${uid}").path
-                        saveUserData(uid,username,email,pic)
+                        saveUserData(uid,username.toLowerCase(),email,pic)
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()

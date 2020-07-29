@@ -68,7 +68,9 @@ class UsersFragment : Fragment() {
                 if (TextUtils.isEmpty(s)) {
                     logRecyclerView(databaseReference)
                 } else {
-                    logRecyclerView(databaseReference.orderByChild("name").startAt(s).endAt(s + "\uf8ff"))
+                    if (s != null) {
+                        logRecyclerView(databaseReference.orderByChild("name").startAt(s.toLowerCase()).endAt(s + "\uf8ff"))
+                    }
                 }
                 return false
             }

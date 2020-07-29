@@ -10,6 +10,15 @@
 
 <!--</resources>-->
 <resources>
+
+<!--    <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--        <item name="android:windowNoTitle">true</item>-->
+<!--        <item name="android:windowActionBar">false</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--        <item name="android:windowBackground">@android:color/black</item>-->
+<!--    </style>-->
+
     <style name="AppTheme" parent="AppTheme.Base"></style>
     <!-- Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light">

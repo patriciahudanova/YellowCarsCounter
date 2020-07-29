@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun takeUsersPictureOnClick(){
-        civ_userphoto.setOnClickListener {
+        ib_camera.setOnClickListener {
             takePictureIntent()
             val photo = when {
                 ::imageUri.isInitialized -> imageUri
