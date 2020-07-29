@@ -1,0 +1,2 @@
+rootProject.name='YellowCarsCounter'
+include ':app'

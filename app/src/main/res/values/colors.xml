@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F7FF00</color>
+    <color name="colorPrimaryDark">#171717</color>
+    <color name="colorAccent">#F7FF00</color>
+    <color name="gradientStart">#171717</color>
+    <color name="gradientCenter">#23221D</color>
+    <color name="gradientEnd">#F7FF00</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="whiteTransparent">#A8FFFFFF</color>
+    <color name="whiteAlmostTransparent">#0DBFBFBF</color>
+    <color name="normalTabTextColor">#F1FFFFFF</color>
+    <color name="selectedTabTextColor">#95FFFFFF</color>
+
+</resources>

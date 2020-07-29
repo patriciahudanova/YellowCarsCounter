@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "415320397407",
+    "firebase_url": "https://yellowcarscounter.firebaseio.com",
+    "project_id": "yellowcarscounter",
+    "storage_bucket": "yellowcarscounter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415320397407:android:f0bcae029e4f3b29ca6dea",
+        "android_client_info": {
+          "package_name": "com.example.yellowcarscounter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415320397407-9t0q9u7jq7i9gog9aap2vi0p2pe2rmkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGN4Ix9G3tUXQV6G-aqLWxOAm4KH5UN-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415320397407-9t0q9u7jq7i9gog9aap2vi0p2pe2rmkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
